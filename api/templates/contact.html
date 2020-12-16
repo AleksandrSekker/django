@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %} Login Page {% endblock %}
+{% block content %}
+<form method="POST" action="{% url 'contact' %}" class='w-50 mx-auto mt-5'>
+    {% csrf_token %}
+    <input type="textarea" name="message" placeholder="Send message" class="form-control my-2">
+
+    <input class="btn btn-success w-100" type="submit" value="Login">
+</form>
+{% endblock %}

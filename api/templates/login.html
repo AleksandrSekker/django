@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Login Page {% endblock %}
+{% block content %}
+<form method="POST" action="" class='w-50 mx-auto mt-5'>
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username..." class="form-control my-2">
+    <input type="password" name="password" placeholder="Password..." class="form-control my-2" >
+    <input class="btn btn-success w-100" type="submit" value="Login">
+</form>
+<div class="mt-4">
+    <div class="d-flex justify-content-center links">
+        Don't have an account? <a href="{% url 'registration' %}" class="ml-2">Sign Up</a>
+    </div>
+</div>
+{% for message in messages %}
+<p id="messages" class="alert text-center">{{message}}</p>
+{% endfor %}
+{% endblock %}
