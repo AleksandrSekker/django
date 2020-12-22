@@ -5,7 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 # Create your views here.
@@ -18,8 +19,13 @@ def home(request):
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
+    if request.method == 'DELETE':
+        post = TodoListItem.objects.delete()
     context = {'post':post,'form': form}
     return render(request, 'home.html', context)
+
+    
+
 def registration(request):
     if request.user.is_authenticated:
         return redirect('home')
@@ -43,6 +49,13 @@ def loginPage(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
+            send_mail(
+                    'Login',
+                    f'User {username} login in site',
+                    settings.EMAIL_HOST_USER,
+                    ['sekkerpleksandr@gmail.com',],
+                    fail_silently=False,
+                        )
             if user is not None:
                 login(request, user)
                 return redirect('home')

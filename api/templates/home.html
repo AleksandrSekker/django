@@ -8,12 +8,12 @@
             {{form|crispy}}
             <input type="submit" value="OK" class="btn btn-primary mt-3">
         </form>
-
+         
         {% for posts in post %}
                 <table class="table table-dark">
                         <td>{{posts.title}}</td>
                         <td>{{posts.message}}</td>
-                  </table>
+                </table>
         {% endfor %}
     </div>  
 {% endblock %}
